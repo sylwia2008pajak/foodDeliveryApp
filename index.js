@@ -1,17 +1,23 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
-const Joi = require('joi');
 const customers = require('./routes/customers')
+const cuisines = require('./routes/cuisines')
+const dishes = require('./routes/dishes')
+const orders = require('./routes/orders')
 const home = require('./routes/home')
 
+mongoose.connect('mongodb://127.0.0.1:27017/foodDelivery')
+  .then(() => console.log('Connected to MongoDB...'))
+  .catch(err => console.error('Could not connect to MongoDB...', err));
+
 app.use(express.json());
+
 app.use('/api/customers', customers);
+app.use('/api/cuisines', cuisines);
+app.use('/api/dishes', dishes);
+app.use('/api/orders', orders);
 app.use('/', home);
-
-
-
-
-
 
 const port = process.env.PORT || 3000;
 app.listen (port, () => console.log(`Listening on

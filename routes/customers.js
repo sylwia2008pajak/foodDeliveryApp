@@ -3,9 +3,9 @@ const router = express.Router();
 const Joi = require('joi');
 
 const customers = [
-    {id: 1, name: 'Jan'},
-    {id: 2, name: 'Max'},
-    {id: 3, name: 'Laura'}
+    {id: 1, name: 'Jan', phone: '+32555223366', email: "aaa@gmail.com"},
+    {id: 2, name: 'Max', phone: '+32777223366', email: "bbb@gmail.com"},
+    {id: 3, name: 'Laura', phone: '+32888223366', email: "ccc@gmail.com"}
 ];
 
 //1
@@ -30,7 +30,9 @@ router.post('/', (req, res) => {
     }
     const customer = {
         id: customers.length +1,
-        name: req.body.name
+        name: req.body.name,
+        phone: req.body.phone,
+        email: req.body.email
     };
     customers.push(customer);
     res.send(customer);
@@ -47,6 +49,8 @@ router.put('/:id', (req, res) => {
         return;
     }
     customer.name = req.body.name;
+    customer.phone = req.body.phone;
+    customer.email = req.body.email;
     res.send(customer);
 });
 
@@ -62,7 +66,9 @@ router.delete('/:id', (req, res) => {
 
 function validateCustomer(customer) {
     const schema = Joi.object({
-        name: Joi.string().min(3).required()
+        name: Joi.string().min(3).required(),
+        phone: Joi.string().min(12).required(),
+        email: Joi.string().email().required()
     });
     return schema.validate(customer);
 };
