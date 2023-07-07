@@ -1,0 +1,27 @@
+get http://localhost:3000/
+###
+
+get http://localhost:3000/api/cuisines   
+
+###
+post http://localhost:3000/api/cuisines
+Content-Type: application/json
+
+{
+    "name": "German"
+}
+
+###
+put http://localhost:3000/api/cuisines/64a83ca3b401c02a12d6fafa
+Content-Type: application/json
+
+{
+    "name": "testName"
+}
+
+###
+delete http://localhost:3000/api/genres/64a7d37db9545cbd38634cc4
+Content-Type: application/json
+
+
+

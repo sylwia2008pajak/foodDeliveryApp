@@ -9,10 +9,19 @@ const cuisines = [
     {id: 3, name: 'Spanish'}
 ];
 
-const cuisineSchema = new mongoose.Schema( {
+/* const cuisineSchema = new mongoose.Schema( {
     name: String
 });
 const Cuisine = mongoose.model("Cuisine", cuisineSchema);
+ */
+
+const Cuisine = mongoose.model('Cuisine', new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        minlength: 3
+    }
+}));
 
 //CRUD
 //Create
@@ -60,24 +69,34 @@ async function removeCuisine(id) {
     });
     console.log(result);
 }
-removeCuisine('64a7d1b5d6602d4469a623a1')
+removeCuisine('64a7d1b5d6602d4469a623a1');
 
 //ENDPOINTS
 //1
-router.get('/', (req, res) => {
+/* router.get('/', (req, res) => {
     res.send(cuisines)
+}); */
+router.get('/', async (req, res) => {
+    const cuisines = await Cuisine.find();
+    res.send(cuisines);
 });
 
 //2
-router.get('/:id', (req, res) => {
+/* router.get('/:id', (req, res) => {
     const cuisine = cuisines.find(c => c.id ===
         parseInt(req.params.id));
     if(!cuisine) return res.status(404).send('the cuisine with the given id was not found');    
     res.send(cuisine)
+}); */
+
+router.get('/:id', async(req, res) => {
+    const cuisine = await Cuisine.findById(req.params.id);
+    if(!cuisine) return res.status(404).send('the cuisine with the given id was not found');    
+    res.send(cuisine);
 });
 
 //3
-router.post('/', (req, res) => {
+/* router.post('/', (req, res) => {
     const result = validateCuisine(req.body);
     if(result.error){
         res.status(400).send(result.error.details[0].message);
@@ -89,10 +108,17 @@ router.post('/', (req, res) => {
     };
     cuisines.push(cuisine);
     res.send(cuisine);
+}); */
+router.post('/', async(req, res) => {
+    const { error } = validateCuisine(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+    let cuisine = new Cuisine ({name: req.body.name});
+    cuisine = await cuisine.save();
+    res.send(cuisine);
 });
 
 //4
-router.put('/:id', (req, res) => {
+/* router.put('/:id', (req, res) => {
     const cuisine = cuisines.find(c => c.id ===
         parseInt(req.params.id));
     if(!cuisine) return res.status(404).send('the cuisine with the given id was not found');
@@ -103,16 +129,32 @@ router.put('/:id', (req, res) => {
     }
     cuisine.name = req.body.name;
     res.send(cuisine);
-});
+}); */
+
+router.put('/:id', async (req, res) => {
+    const { error } = validateCuisine(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+    const cuisine = await Cuisine.findByIdAndUpdate(req.params.id,
+    {name: req.body.name},{new: true});
+    if (!cuisine) return res.status(404).send('the cuisine with the given id was not found');
+    res.send(cuisine);
+    });
 
 //5
-router.delete('/:id', (req, res) => {
+/* router.delete('/:id', (req, res) => {
     const cuisine = cuisines.find(c => c.id ===
         parseInt(req.params.id));
     if(!cuisine) return res.status(404).send('the cuisine with the given id was not found');
         const index = cuisines.indexOf(cuisine);
         cuisines.splice(index, 1);
         res.send(cuisine);
+}); */
+
+router.delete('/:id', async (req, res) => {
+    const cuisine = await 
+    Cuisine.findByIdAndRemove(req.params.id);
+    if(!cuisine) return res.status(404).send('the cuisine with the given id was not found');
+    res.send(cuisine);
 });
 
 function validateCuisine(cuisine) {
