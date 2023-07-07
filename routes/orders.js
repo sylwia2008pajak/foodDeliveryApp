@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
+const { default: mongoose } = require('mongoose');
 
 const orders = [
     {id: 1, customer: 'Max', dish:'Paella', date: "07.07.2023"},
@@ -8,6 +9,56 @@ const orders = [
     {id: 3, customer: 'BLiss', dish:'Ratatouille', date: "07.07.2023"}
 ];
 
+const orderSchema = new mongoose.Schema( {
+    customer: String,
+    dish: String,
+    date: { type: Date, default: Date.now }
+});
+const Order = mongoose.model("Order", orderSchema);
+
+//CRUD
+//Create
+async function createOrder() {
+    const order = new Order({
+        customer: "Maxwel",
+        dish: "Hamburger"
+    });
+    const result = await order.save();
+    console.log(result);
+}
+createOrder();
+
+//Read
+async function getOrders() {
+    return await Order.find();
+}
+async function run() {
+    const orders = await getOrders();
+    console.log(orders)
+}
+run();
+
+//Update
+async function updateOrder(id) {
+    const result = await Order.findByIdAndUpdate(id,{
+        $set: {
+            customer: "Maxwel",
+            dish: "Hamburger wit no ketchup"
+        }}, {new:true});
+        console.log(result);
+    }
+updateOrder('64a827ed2957ba146174bcc6');
+
+//Delete
+async function removeOrder(id) {
+    const result = await Order.deleteOne({
+        _id: id
+    });
+    console.log(result);
+}
+removeOrder('64a828dfb86b4a084f6aee6d');
+
+//ENDPOINTS
 //1
 router.get('/', (req, res) => {
     res.send(orders)

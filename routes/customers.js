@@ -1,12 +1,65 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
+const { default: mongoose } = require('mongoose');
 
 const customers = [
     {id: 1, name: 'Jan', phone: '+32555223366', email: "aaa@gmail.com"},
     {id: 2, name: 'Max', phone: '+32777223366', email: "bbb@gmail.com"},
     {id: 3, name: 'Laura', phone: '+32888223366', email: "ccc@gmail.com"}
 ];
+
+
+const customerSchema = new mongoose.Schema( {
+    name: String,
+    phone: String,
+    email: String
+});
+const Customer = mongoose.model("Customer", customerSchema);
+
+//CRUD
+//Create
+async function createCustomer() {
+    const customer = new Customer({
+        name: "Filip",
+        phone: "+48513736721",
+        email: "ddd@gmail.com"
+    });
+    const result = await customer.save();
+    console.log(result);
+}
+createCustomer();
+
+//Read
+async function getCustomers() {
+    return await Customer.find();
+}
+async function run() {
+    const customers = await getCustomers();
+    console.log(customers)
+}
+run();
+
+//Update
+async function updateCustomer(id) {
+    const result = await Customer.findByIdAndUpdate(id,{
+        $set: {
+            name: "Michal",
+            phone: "+48555555555",
+            email: "kkk@hotmail.com"
+        }}, {new:true});
+        console.log(result);
+    }
+updateCustomer('64a82052172698735cf5930c');
+
+//Delete
+async function removeCustomer(id) {
+    const result = await Customer.deleteOne({
+        _id: id
+    });
+    console.log(result);
+}
+removeCustomer('64a81ffba3d54b0418c665f4')
 
 //1
 router.get('/', (req, res) => {
