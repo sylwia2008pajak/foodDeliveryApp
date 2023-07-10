@@ -3,20 +3,34 @@ const router = express.Router();
 const Joi = require('joi');
 const { default: mongoose } = require('mongoose');
 
-const dishes = [
-    {id: 1, name: 'Pasta', ingredients: ["Tomatoe", "Cheese", "Flour"], calories: 800, price: 18},
-    {id: 2, name: 'Ratatouille', ingredients: ["Tomatoe", "Eggplant", "Zucchini"], calories: 500, price: 16},
-    {id: 3, name: 'Paella', ingredients: ["Rice", "Schrimps", "Tomatoe saus"], calories: 800, price: 18}
-];
 
-const dishSchema = new mongoose.Schema( {
-    name: String,
-    ingredients: [String],
-    calories: Number,
-    price: Number
+const Dish = mongoose.model("Dish", new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        minlength: 2
+    },
+    ingredients: {
+        type: Array,
+        validate: {
+            validator: function (v) {
+                return v && v.length > 0;
+            },
+            message: 'A dish should have at least one ingredient.'
+        }
+    },
+    calories: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+    price: {
+        type: Number,
+        required: true,
+        min: 0
+    }
+}));
 
-});
-const Dish = mongoose.model("Dish", dishSchema);
 
 //CRUD
 //Create
@@ -30,7 +44,7 @@ async function createDish() {
     const result = await dish.save();
     console.log(result);
 }
-createDish();
+//createDish();
 
 //Read
 async function getDishes() {
@@ -40,7 +54,7 @@ async function run() {
     const dishes = await getDishes();
     console.log(dishes)
 }
-run();
+//run();
 
 //Update
 async function updateDish(id) {
@@ -53,7 +67,7 @@ async function updateDish(id) {
         }}, {new:true});
         console.log(result);
     }
-updateDish('64a823778f35bacfa1230946');
+//updateDish('64a823778f35bacfa1230946');
 
 //Delete
 async function removeDish(id) {
@@ -62,71 +76,64 @@ async function removeDish(id) {
     });
     console.log(result);
 }
-removeDish('64a8243cf3439ae2593852bf');
+//removeDish('64a8243cf3439ae2593852bf');
+
 
 //ENDPOINTS
-//1
-router.get('/', (req, res) => {
+
+// 1: GET /api/dishes
+router.get('/', async(req, res) => {
+    const dishes = await Dish.find();
     res.send(dishes)
 });
 
-//2
-router.get('/:id', (req, res) => {
-    const dish = dishes.find(c => c.id ===
-        parseInt(req.params.id));
+// 2: GET /api/dishes/:id
+router.get('/:id', async(req, res) => {
+    const dish = await Dish.findById(req.params.id);
     if(!dish) return res.status(404).send('the dish with the given id was not found');    
     res.send(dish)
 });
 
-//3
-router.post('/', (req, res) => {
-    const result = validateDish(req.body);
-    if(result.error){
-        res.status(400).send(result.error.details[0].message);
-        return;
-    }
-    const dish = {
-        id: dishes.length +1,
-        name: req.body.name,
+// 3 : POST /api/dishes
+router.post('/', async(req, res) => {
+    const { error } = validateDish(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+    let dish = new Dish(
+        {name: req.body.name,
         ingredients: req.body.ingredients,
         calories: req.body.calories,
-        price: req.body.price
-    };
-    dishes.push(dish);
+        price: req.body.price}
+    );
+    dish = await dish.save();
     res.send(dish);
 });
 
-//4
-router.put('/:id', (req, res) => {
-    const dish = dishes.find(c => c.id ===
-        parseInt(req.params.id));
+// 4: PUT /api/dishes/:id
+router.put('/:id', async(req, res) => {
+    const { error } = validateDish(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+    const dish = await Dish.findByIdAndUpdate(req.params.id,
+        {name: req.body.name,
+        ingredients: req.body.ingredients,
+        calories: req.body.calories,
+        price: req.body.price},
+        {new: true});
     if(!dish) return res.status(404).send('the dish with the given id was not found');
-    const result = validateDish(req.body);
-    if(result.error){
-        res.status(400).send(result.error.details[0].message);
-        return;
-    }
-    dish.name = req.body.name;
-    dish.ingredients = req.body.ingredients;
-    dish.calories = req.body.calories;
-    dish.price = req.body.price;
     res.send(dish);
 });
 
-//5
-router.delete('/:id', (req, res) => {
-    const dish = dishes.find(c => c.id ===
-        parseInt(req.params.id));
+// 5: DELETE /api/dishes/:id
+router.delete('/:id', async(req, res) => {
+    const dish = await Dish.findByIdAndRemove(req.params.id);
     if(!dish) return res.status(404).send('the dish with the given id was not found');
-        const index = dishes.indexOf(dish);
-        dishes.splice(index, 1);
-        res.send(dish);
+    res.send(dish);
 });
+
 
 function validateDish(dish) {
     const schema = Joi.object({
         name: Joi.string().min(2).required(),
-        ingredients: Joi.array().required(),
+        ingredients: Joi.array().min(1).required(),
         calories: Joi.number().min(0).required(),
         price: Joi.number().min(0).required()
     });

@@ -3,19 +3,29 @@ const router = express.Router();
 const Joi = require('joi');
 const { default: mongoose } = require('mongoose');
 
-const customers = [
-    {id: 1, name: 'Jan', phone: '+32555223366', email: "aaa@gmail.com"},
-    {id: 2, name: 'Max', phone: '+32777223366', email: "bbb@gmail.com"},
-    {id: 3, name: 'Laura', phone: '+32888223366', email: "ccc@gmail.com"}
-];
 
+const Customer = mongoose.model("Customer", new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        minlength: 3
+    },
+    phone: {
+        type: String,
+        required: true,
+        minlength: 12
+    },
+    email: {
 
-const customerSchema = new mongoose.Schema( {
-    name: String,
-    phone: String,
-    email: String
-});
-const Customer = mongoose.model("Customer", customerSchema);
+        type: String,
+        trim: true,
+        lowercase: true,
+        unique: true,
+        required: true,
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]
+    }
+}));
+
 
 //CRUD
 //Create
@@ -23,12 +33,12 @@ async function createCustomer() {
     const customer = new Customer({
         name: "Filip",
         phone: "+48513736721",
-        email: "ddd@gmail.com"
+        email: "sylwia@gmail.com"
     });
     const result = await customer.save();
     console.log(result);
 }
-createCustomer();
+//createCustomer();
 
 //Read
 async function getCustomers() {
@@ -38,7 +48,7 @@ async function run() {
     const customers = await getCustomers();
     console.log(customers)
 }
-run();
+//run();
 
 //Update
 async function updateCustomer(id) {
@@ -50,7 +60,7 @@ async function updateCustomer(id) {
         }}, {new:true});
         console.log(result);
     }
-updateCustomer('64a82052172698735cf5930c');
+//updateCustomer('64a82052172698735cf5930c');
 
 //Delete
 async function removeCustomer(id) {
@@ -59,63 +69,57 @@ async function removeCustomer(id) {
     });
     console.log(result);
 }
-removeCustomer('64a81ffba3d54b0418c665f4')
+//removeCustomer('64a81ffba3d54b0418c665f4');
 
-//1
-router.get('/', (req, res) => {
+
+//ENDPOINTS
+
+// 1: GET /api/customers
+router.get('/', async(req, res) => {
+    const customers = await Customer.find();
     res.send(customers)
 });
 
-//2
-router.get('/:id', (req, res) => {
-    const customer = customers.find(c => c.id ===
-        parseInt(req.params.id));
+// 2: GET /api/customers/:id
+router.get('/:id', async(req, res) => {
+    const customer = await Customer.findById(req.params.id);
     if(!customer) return res.status(404).send('the customer with the given id was not found');    
     res.send(customer)
 });
 
-//3
-router.post('/', (req, res) => {
-    const result = validateCustomer(req.body);
-    if(result.error){
-        res.status(400).send(result.error.details[0].message);
-        return;
-    }
-    const customer = {
-        id: customers.length +1,
-        name: req.body.name,
+// 3 : POST /api/customers
+router.post('/', async(req, res) => {
+    const { error} = validateCustomer(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+    let customer = new Customer(
+        {name: req.body.name,
         phone: req.body.phone,
-        email: req.body.email
-    };
-    customers.push(customer);
+        email: req.body.email}
+        );
+    customer = await customer.save();
     res.send(customer);
 });
 
-//4
-router.put('/:id', (req, res) => {
-    const customer = customers.find(c => c.id ===
-        parseInt(req.params.id));
+// 4: PUT /api/customers/:id
+router.put('/:id', async(req, res) => {
+    const { error } = validateCustomer(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+    const customer = await Customer.findByIdAndUpdate(req.params.id, 
+        {name: req.body.name,
+        phone: req.body.phone,
+        email: req.body.email},
+        {new: true});
     if(!customer) return res.status(404).send('the customer with the given id was not found');
-    const result = validateCustomer(req.body);
-    if(result.error){
-        res.status(400).send(result.error.details[0].message);
-        return;
-    }
-    customer.name = req.body.name;
-    customer.phone = req.body.phone;
-    customer.email = req.body.email;
     res.send(customer);
 });
 
-//5
-router.delete('/:id', (req, res) => {
-    const customer = customers.find(c => c.id ===
-        parseInt(req.params.id));
+// 5: DELETE /api/customers/:id
+router.delete('/:id', async(req, res) => {
+    const customer = await Customer.findByIdAndRemove(req.params.id);
     if(!customer) return res.status(404).send('the customer with the given id was not found');
-        const index = customers.indexOf(customer);
-        customers.splice(index, 1);
-        res.send(customer);
+    res.send(customer);
 });
+
 
 function validateCustomer(customer) {
     const schema = Joi.object({

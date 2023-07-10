@@ -3,11 +3,11 @@ const router = express.Router();
 const Joi = require('joi');
 const { default: mongoose } = require('mongoose');
 
-const cuisines = [
+/* const cuisines = [
     {id: 1, name: 'Italian'},
     {id: 2, name: 'French'},
     {id: 3, name: 'Spanish'}
-];
+]; */
 
 /* const cuisineSchema = new mongoose.Schema( {
     name: String
@@ -23,6 +23,7 @@ const Cuisine = mongoose.model('Cuisine', new mongoose.Schema({
     }
 }));
 
+
 //CRUD
 //Create
 async function createCuisine() {
@@ -32,7 +33,7 @@ async function createCuisine() {
     const result = await cuisine.save();
     console.log(result);
 }
-createCuisine();
+//createCuisine();
 
 //Read
 async function getCuisines() {
@@ -42,7 +43,7 @@ async function run() {
     const cuisines = await getCuisines();
     console.log(cuisines)
 }
-run();
+//run();
 
 //Update
 async function updateCuisine(id) {
@@ -60,7 +61,7 @@ async function updateCuisine(id) {
     }, {new:true});
     console.log(result);
 }
-updateCuisine('64a7d2c759e7b5a9542b7788');
+//updateCuisine('64a7d2c759e7b5a9542b7788');
 
 //Delete
 async function removeCuisine(id) {
@@ -69,19 +70,21 @@ async function removeCuisine(id) {
     });
     console.log(result);
 }
-removeCuisine('64a7d1b5d6602d4469a623a1');
+//removeCuisine('64a7d3c9f809ca8cd4c8af8b');
+
 
 //ENDPOINTS
-//1
+
+// 1: GET /api/cuisines
 /* router.get('/', (req, res) => {
     res.send(cuisines)
 }); */
-router.get('/', async (req, res) => {
+router.get('/', async(req, res) => {
     const cuisines = await Cuisine.find();
     res.send(cuisines);
 });
 
-//2
+// 2: GET /api/cuisines/:id
 /* router.get('/:id', (req, res) => {
     const cuisine = cuisines.find(c => c.id ===
         parseInt(req.params.id));
@@ -95,7 +98,7 @@ router.get('/:id', async(req, res) => {
     res.send(cuisine);
 });
 
-//3
+// 3 : POST /api/cuisines
 /* router.post('/', (req, res) => {
     const result = validateCuisine(req.body);
     if(result.error){
@@ -117,7 +120,7 @@ router.post('/', async(req, res) => {
     res.send(cuisine);
 });
 
-//4
+// 4: PUT /api/cuisines/:id
 /* router.put('/:id', (req, res) => {
     const cuisine = cuisines.find(c => c.id ===
         parseInt(req.params.id));
@@ -131,16 +134,16 @@ router.post('/', async(req, res) => {
     res.send(cuisine);
 }); */
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', async(req, res) => {
     const { error } = validateCuisine(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if(error) return res.status(400).send(error.details[0].message);
     const cuisine = await Cuisine.findByIdAndUpdate(req.params.id,
     {name: req.body.name},{new: true});
     if (!cuisine) return res.status(404).send('the cuisine with the given id was not found');
     res.send(cuisine);
     });
 
-//5
+// 5: DELETE /api/cuisines/:id
 /* router.delete('/:id', (req, res) => {
     const cuisine = cuisines.find(c => c.id ===
         parseInt(req.params.id));
@@ -150,9 +153,8 @@ router.put('/:id', async (req, res) => {
         res.send(cuisine);
 }); */
 
-router.delete('/:id', async (req, res) => {
-    const cuisine = await 
-    Cuisine.findByIdAndRemove(req.params.id);
+router.delete('/:id', async(req, res) => {
+    const cuisine = await Cuisine.findByIdAndRemove(req.params.id);
     if(!cuisine) return res.status(404).send('the cuisine with the given id was not found');
     res.send(cuisine);
 });

@@ -1,9 +1,17 @@
+//Home
 get http://localhost:3000/
 ###
 
+//Cuisines
+// 1: GET /api/cuisines
 get http://localhost:3000/api/cuisines   
 
 ###
+// 2: GET /api/cuisines/:id
+get http://localhost:3000/api/cuisines/64a7d8052fcf12ff9fbb49a0 
+
+###
+// 3 : POST /api/cuisines
 post http://localhost:3000/api/cuisines
 Content-Type: application/json
 
@@ -12,6 +20,7 @@ Content-Type: application/json
 }
 
 ###
+// 4: PUT /api/cuisines/:id
 put http://localhost:3000/api/cuisines/64a83ca3b401c02a12d6fafa
 Content-Type: application/json
 
@@ -20,8 +29,122 @@ Content-Type: application/json
 }
 
 ###
-delete http://localhost:3000/api/genres/64a7d37db9545cbd38634cc4
+// 5: DELETE /api/cuisines/:id
+delete http://localhost:3000/api/cuisines/64a7d4c54a43a5602fa5e59c
 Content-Type: application/json
 
+###
+//Customers
+// 1: GET /api/customers
+get http://localhost:3000/api/customers   
 
+###
+// 2: GET /api/customers/:id
+get http://localhost:3000/api/customers/64a82114a957f010a83b8c48
 
+###
+// 3 : POST /api/customers
+post http://localhost:3000/api/customers
+Content-Type: application/json
+
+{
+    "name": "testUser",
+    "phone": "+32111111111",
+    "email": "test@gmail.com"
+}
+
+###
+// 4: PUT /api/customers/:id
+put http://localhost:3000/api/customers/64abe7af8b9e51fa86e9ef9a
+Content-Type: application/json
+
+{
+    "name": "testUser2",
+    "phone": "+32222222222",
+    "email": "test2@gmail.com"
+}
+
+###
+// 5: DELETE /api/customers/:id
+delete http://localhost:3000/api/customers/64a82114a957f010a83b8c48
+Content-Type: application/json
+
+###
+//Dishes
+// 1: GET /api/dishes
+get http://localhost:3000/api/dishes
+
+###
+// 2: GET /api/dishes/:id
+get http://localhost:3000/api/dishes/64abeae4842f9fe2a9739f1b
+
+###
+// 3 : POST /api/dishes
+post http://localhost:3000/api/dishes
+Content-Type: application/json
+
+{
+    "name": "testDish",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2",
+      "ingredient3"
+    ],
+    "calories": 200,
+    "price": 20
+}
+
+###
+// 4: PUT /api/dishes/:id
+put http://localhost:3000/api/dishes/64abeae4842f9fe2a9739f1b
+Content-Type: application/json
+
+{
+    "name": "testDish0",
+    "ingredients": [
+      "ingredient0"
+    ],
+    "calories": 100,
+    "price": 10
+}
+
+###
+// 5: DELETE /api/dishes/:id
+delete http://localhost:3000/api/dishes/64abeae4842f9fe2a9739f1b
+Content-Type: application/json
+
+###
+//Orders
+// 1: GET /api/orders
+get http://localhost:3000/api/orders
+
+###
+// 2: GET /api/orders/:id
+get http://localhost:3000/api/orders/64abec9e842f9fe2a9739f28
+
+###
+// 3 : POST /api/orders
+post http://localhost:3000/api/orders
+Content-Type: application/json
+
+{
+    "customer": "testCustomer",
+    "dish": "testDish"
+}
+
+###
+// 4: PUT /api/orders/:id
+put http://localhost:3000/api/orders/64abec9e842f9fe2a9739f28
+Content-Type: application/json
+
+{
+    "customer": "testCustomer0",
+    "dish": "testDish0"
+}
+
+###
+// 5: DELETE /api/orders/:id
+delete http://localhost:3000/api/orders/64abec9e842f9fe2a9739f28
+Content-Type: application/json
+
+###
