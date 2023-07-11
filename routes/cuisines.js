@@ -1,6 +1,7 @@
+const {Cuisine, validate} = require('../models/cuisine');
 const express = require('express');
 const router = express.Router();
-const Joi = require('joi');
+/* const Joi = require('joi'); */
 const { default: mongoose } = require('mongoose');
 
 /* const cuisines = [
@@ -15,38 +16,38 @@ const { default: mongoose } = require('mongoose');
 const Cuisine = mongoose.model("Cuisine", cuisineSchema);
  */
 
-const Cuisine = mongoose.model('Cuisine', new mongoose.Schema({
+/* const Cuisine = mongoose.model('Cuisine', new mongoose.Schema({
     name: {
         type: String,
         required: true,
         minlength: 3
     }
-}));
+})); */
 
 
 //CRUD
 //Create
-async function createCuisine() {
+/* async function createCuisine() {
     const cuisine = new Cuisine({
         name: "Mexican"
     });
     const result = await cuisine.save();
     console.log(result);
 }
-//createCuisine();
+createCuisine(); */
 
 //Read
-async function getCuisines() {
+/* async function getCuisines() {
     return await Cuisine.find();
 }
 async function run() {
     const cuisines = await getCuisines();
     console.log(cuisines)
 }
-//run();
+run(); */
 
 //Update
-async function updateCuisine(id) {
+/* async function updateCuisine(id) { */
 /*     const cuisine = await Cuisine.findById(id);
     if(!cuisine) return;
     cuisine.set({
@@ -54,23 +55,23 @@ async function updateCuisine(id) {
     });
     const result = await cuisine.save();
     console.log(result); */
-    const result = await Cuisine.findByIdAndUpdate(id,{
+/*     const result = await Cuisine.findByIdAndUpdate(id,{
         $set: {
             name: "Greek"
         }
     }, {new:true});
     console.log(result);
 }
-//updateCuisine('64a7d2c759e7b5a9542b7788');
+updateCuisine('64a7d2c759e7b5a9542b7788'); */
 
 //Delete
-async function removeCuisine(id) {
+/* async function removeCuisine(id) {
     const result = await Cuisine.deleteOne({
         _id: id
     });
     console.log(result);
 }
-//removeCuisine('64a7d3c9f809ca8cd4c8af8b');
+removeCuisine('64a7d3c9f809ca8cd4c8af8b'); */
 
 
 //ENDPOINTS
@@ -112,14 +113,21 @@ router.get('/:id', async(req, res) => {
     cuisines.push(cuisine);
     res.send(cuisine);
 }); */
-router.post('/', async(req, res) => {
+/* router.post('/', async(req, res) => {
     const { error } = validateCuisine(req.body);
     if(error) return res.status(400).send(error.details[0].message);
     let cuisine = new Cuisine ({name: req.body.name});
     cuisine = await cuisine.save();
     res.send(cuisine);
-});
+}); */
 
+router.post('/', async(req, res) => {
+    const { error } = validate(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+    let cuisine = new Cuisine ({name: req.body.name});
+    cuisine = await cuisine.save();
+    res.send(cuisine);
+});
 // 4: PUT /api/cuisines/:id
 /* router.put('/:id', (req, res) => {
     const cuisine = cuisines.find(c => c.id ===
@@ -134,13 +142,21 @@ router.post('/', async(req, res) => {
     res.send(cuisine);
 }); */
 
-router.put('/:id', async(req, res) => {
+/* router.put('/:id', async(req, res) => {
     const { error } = validateCuisine(req.body);
     if(error) return res.status(400).send(error.details[0].message);
     const cuisine = await Cuisine.findByIdAndUpdate(req.params.id,
     {name: req.body.name},{new: true});
     if (!cuisine) return res.status(404).send('the cuisine with the given id was not found');
     res.send(cuisine);
+    }); */
+    router.put('/:id', async(req, res) => {
+        const { error } = validate(req.body);
+        if(error) return res.status(400).send(error.details[0].message);
+        const cuisine = await Cuisine.findByIdAndUpdate(req.params.id,
+        {name: req.body.name},{new: true});
+        if (!cuisine) return res.status(404).send('the cuisine with the given id was not found');
+        res.send(cuisine);
     });
 
 // 5: DELETE /api/cuisines/:id
@@ -159,11 +175,11 @@ router.delete('/:id', async(req, res) => {
     res.send(cuisine);
 });
 
-function validateCuisine(cuisine) {
+/* function validateCuisine(cuisine) {
     const schema = Joi.object({
         name: Joi.string().min(3).required()
     });
     return schema.validate(cuisine);
-};
+}; */
 
 module.exports = router;

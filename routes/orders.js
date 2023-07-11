@@ -1,15 +1,18 @@
+const {Order, validate} = require('../models/order');
+const {Dish} = require('../models/dish');
+const {Customer} = require('../models/customer');
 const express = require('express');
 const router = express.Router();
-const Joi = require('joi');
+/* const Joi = require('joi'); */
 const { default: mongoose } = require('mongoose');
 
-const orders = [
+/* const orders = [
     {id: 1, customer: 'Max', dish:'Paella', date: "07.07.2023"},
     {id: 2, customer: 'Helen', dish:'Pasta', date: "07.07.2023"},
     {id: 3, customer: 'BLiss', dish:'Ratatouille', date: "07.07.2023"}
-];
+]; */
 
-const Order = mongoose.model("Order", new mongoose.Schema({
+/* const Order = mongoose.model("Order", new mongoose.Schema({
     customer: {
         type: String,
         minlength: 3,
@@ -24,12 +27,12 @@ const Order = mongoose.model("Order", new mongoose.Schema({
         type: Date, 
         default: Date.now(),
     }
-}));
+})); */
 
 
 //CRUD
 //Create
-async function createOrder() {
+/* async function createOrder() {
     const order = new Order({
         customer: "Sylwia",
         dish: "Hamburger",
@@ -37,20 +40,20 @@ async function createOrder() {
     const result = await order.save();
     console.log(result);
 }
-//createOrder();
+createOrder(); */
 
 //Read
-async function getOrders() {
+/* async function getOrders() {
     return await Order.find();
 }
 async function run() {
     const orders = await getOrders();
     console.log(orders)
 }
-//run();
+run(); */
 
 //Update
-async function updateOrder(id) {
+/* async function updateOrder(id) {
     const result = await Order.findByIdAndUpdate(id,{
         $set: {
             customer: "Maxwel",
@@ -58,40 +61,58 @@ async function updateOrder(id) {
         }}, {new:true});
         console.log(result);
     }
-//updateOrder('64a827ed2957ba146174bcc6');
+updateOrder('64a827ed2957ba146174bcc6'); */
 
 //Delete
-async function removeOrder(id) {
+/* async function removeOrder(id) {
     const result = await Order.deleteOne({
         _id: id
     });
     console.log(result);
 }
-//removeOrder('64a828dfb86b4a084f6aee6d');
+removeOrder('64a828dfb86b4a084f6aee6d'); */
 
 
 //ENDPOINTS
 
 // 1: GET /api/orders
 router.get('/', async(req, res) => {
-    const orders = await Order.find()
-    res.send(orders)
+    const orders = await Order.find();
+    res.send(orders);
 });
 
 // 2: GET /api/orders/:id
 router.get('/:id', async(req, res) => {
     const order = await Order.findById(req.params.id);
     if(!order) return res.status(404).send('the order with the given id was not found');    
-    res.send(order)
+    res.send(order);
 });
 
 // 3 : POST /api/orders
 router.post('/', async(req, res) => {
-    const { error } = validateOrder(req.body);
+    const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
+
+    const customer = await Customer.findById(req.body.customerId);
+    if(!customer) return res.status(400).send('Invalid customer');
+
+    const dish = await Dish.findById(req.body.dishId);
+    if(!dish) return res.status(400).send('Invalid dish');
+
     let order = new Order({
-        customer: req.body.customer,
-        dish: req.body.dish,
+        customer: {
+            _id: customer._id,
+            name: customer.name,
+            phone: customer.phone,
+            email: customer.email },
+        dish: {
+            _id: dish._id,
+            name: dish.name,
+            ingredients: dish.ingredients,
+            cuisine: dish.cuisine,
+            calories: dish.calories,
+            price: dish.price
+        },
         date: Date.now()
     });
     order = await order.save();
@@ -100,11 +121,31 @@ router.post('/', async(req, res) => {
 
 // 4: PUT /api/orders/:id
 router.put('/:id', async(req, res) => {
-    const { error } = validateOrder(req.body);
+    const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
+    
+    const customer = await Customer.findById(req.body.customerId);
+    if(!customer) return res.status(400).send('Invalid customer');
+
+    const dish = await Dish.findById(req.body.dishId);
+    if(!dish) return res.status(400).send('Invalid dish');
+
     const order = await Order.findByIdAndUpdate(req.params.id,
-        {customer: req.body.customer, 
-        dish: req.body.dish},
+        {customer: {
+            _id: customer._id,
+            name: customer.name,
+            phone: customer.phone,
+            email: customer.email   
+        },
+        dish: {
+            _id: dish._id,
+            name: dish.name,
+            ingredients: dish.ingredients,
+            cuisine: dish.cuisine,
+            calories: dish.calories,
+            price: dish.price
+        },
+        date: Date.now()},
         {new: true});
     if(!order) return res.status(404).send('the order with the given id was not found');
     res.send(order);
@@ -118,12 +159,12 @@ router.delete('/:id', async(req, res) => {
 });
 
 
-function validateOrder(order) {
+/* function validateOrder(order) {
     const schema = Joi.object({
         customer: Joi.string().min(3).required(),
         dish: Joi.string().min(3).required(),
     });
     return schema.validate(order);
-};
+}; */
 
 module.exports = router;

@@ -90,6 +90,7 @@ Content-Type: application/json
       "ingredient2",
       "ingredient3"
     ],
+    "cuisineId": "64a7d8052fcf12ff9fbb49a0",
     "calories": 200,
     "price": 20
 }

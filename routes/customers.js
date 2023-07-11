@@ -1,10 +1,11 @@
+const {Customer, validate} = require('../models/customer');
 const express = require('express');
 const router = express.Router();
-const Joi = require('joi');
+/* const Joi = require('joi'); */
 const { default: mongoose } = require('mongoose');
 
 
-const Customer = mongoose.model("Customer", new mongoose.Schema({
+/* const Customer = mongoose.model("Customer", new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -25,11 +26,11 @@ const Customer = mongoose.model("Customer", new mongoose.Schema({
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]
     }
 }));
-
+ */
 
 //CRUD
 //Create
-async function createCustomer() {
+/* async function createCustomer() {
     const customer = new Customer({
         name: "Filip",
         phone: "+48513736721",
@@ -38,20 +39,20 @@ async function createCustomer() {
     const result = await customer.save();
     console.log(result);
 }
-//createCustomer();
+createCustomer(); */
 
 //Read
-async function getCustomers() {
+/* async function getCustomers() {
     return await Customer.find();
 }
 async function run() {
     const customers = await getCustomers();
     console.log(customers)
 }
-//run();
+run(); */
 
 //Update
-async function updateCustomer(id) {
+/* async function updateCustomer(id) {
     const result = await Customer.findByIdAndUpdate(id,{
         $set: {
             name: "Michal",
@@ -60,16 +61,16 @@ async function updateCustomer(id) {
         }}, {new:true});
         console.log(result);
     }
-//updateCustomer('64a82052172698735cf5930c');
+updateCustomer('64a82052172698735cf5930c'); */
 
 //Delete
-async function removeCustomer(id) {
+/* async function removeCustomer(id) {
     const result = await Customer.deleteOne({
         _id: id
     });
     console.log(result);
 }
-//removeCustomer('64a81ffba3d54b0418c665f4');
+removeCustomer('64a81ffba3d54b0418c665f4'); */
 
 
 //ENDPOINTS
@@ -89,7 +90,7 @@ router.get('/:id', async(req, res) => {
 
 // 3 : POST /api/customers
 router.post('/', async(req, res) => {
-    const { error} = validateCustomer(req.body);
+    const { error} = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
     let customer = new Customer(
         {name: req.body.name,
@@ -102,7 +103,7 @@ router.post('/', async(req, res) => {
 
 // 4: PUT /api/customers/:id
 router.put('/:id', async(req, res) => {
-    const { error } = validateCustomer(req.body);
+    const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
     const customer = await Customer.findByIdAndUpdate(req.params.id, 
         {name: req.body.name,
@@ -120,7 +121,7 @@ router.delete('/:id', async(req, res) => {
     res.send(customer);
 });
 
-
+/* 
 function validateCustomer(customer) {
     const schema = Joi.object({
         name: Joi.string().min(3).required(),
@@ -128,6 +129,6 @@ function validateCustomer(customer) {
         email: Joi.string().email().required()
     });
     return schema.validate(customer);
-};
+}; */
 
 module.exports = router;

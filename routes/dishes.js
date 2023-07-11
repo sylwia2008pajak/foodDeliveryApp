@@ -1,10 +1,12 @@
+const {Dish, validate} = require('../models/dish');
+const {Cuisine} = require('../models/cuisine');
 const express = require('express');
 const router = express.Router();
-const Joi = require('joi');
+/* const Joi = require('joi'); */
 const { default: mongoose } = require('mongoose');
 
 
-const Dish = mongoose.model("Dish", new mongoose.Schema({
+/* const Dish = mongoose.model("Dish", new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -29,12 +31,12 @@ const Dish = mongoose.model("Dish", new mongoose.Schema({
         required: true,
         min: 0
     }
-}));
+})); */
 
 
 //CRUD
 //Create
-async function createDish() {
+/* async function createDish() {
     const dish = new Dish({
         name: "Spaghetti",
         ingredients: ["Pasta", "Tomatoe saus"],
@@ -44,20 +46,20 @@ async function createDish() {
     const result = await dish.save();
     console.log(result);
 }
-//createDish();
+createDish(); */
 
 //Read
-async function getDishes() {
+/* async function getDishes() {
     return await Dish.find();
 }
 async function run() {
     const dishes = await getDishes();
     console.log(dishes)
 }
-//run();
+run(); */
 
 //Update
-async function updateDish(id) {
+/* async function updateDish(id) {
     const result = await Dish.findByIdAndUpdate(id,{
         $set: {
             name: "Spaghetti",
@@ -67,16 +69,16 @@ async function updateDish(id) {
         }}, {new:true});
         console.log(result);
     }
-//updateDish('64a823778f35bacfa1230946');
+updateDish('64a823778f35bacfa1230946'); */
 
 //Delete
-async function removeDish(id) {
+/* async function removeDish(id) {
     const result = await Dish.deleteOne({
         _id: id
     });
     console.log(result);
 }
-//removeDish('64a8243cf3439ae2593852bf');
+removeDish('64a8243cf3439ae2593852bf'); */
 
 
 //ENDPOINTS
@@ -95,7 +97,7 @@ router.get('/:id', async(req, res) => {
 });
 
 // 3 : POST /api/dishes
-router.post('/', async(req, res) => {
+/* router.post('/', async(req, res) => {
     const { error } = validateDish(req.body);
     if(error) return res.status(400).send(error.details[0].message);
     let dish = new Dish(
@@ -106,15 +108,41 @@ router.post('/', async(req, res) => {
     );
     dish = await dish.save();
     res.send(dish);
+}); */
+router.post('/', async(req, res) => {
+    const { error } = validate(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+    const cuisine = await Cuisine.findById(req.body.cuisineId);
+    if(!cuisine) return res.status(400).send('Invalid cuisine.');
+    const dish = new Dish(
+        {name: req.body.name,
+        cuisine: {
+            _id: cuisine._id,
+            name: cuisine.name
+        },
+        ingredients: req.body.ingredients,
+        calories: req.body.calories,
+        price: req.body.price}
+    );
+    await dish.save();
+    res.send(dish);
 });
 
 // 4: PUT /api/dishes/:id
 router.put('/:id', async(req, res) => {
-    const { error } = validateDish(req.body);
+    const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
+    
+    const cuisine = await Cuisine.findById(req.body.cuisineId);
+    if(!cuisine) return res.status(400).send('Invalid cuisine');
+    
     const dish = await Dish.findByIdAndUpdate(req.params.id,
         {name: req.body.name,
         ingredients: req.body.ingredients,
+        cuisine: {
+            _id: cuisine._id,
+            name: cuisine.name
+        },
         calories: req.body.calories,
         price: req.body.price},
         {new: true});
@@ -130,7 +158,7 @@ router.delete('/:id', async(req, res) => {
 });
 
 
-function validateDish(dish) {
+/* function validateDish(dish) {
     const schema = Joi.object({
         name: Joi.string().min(2).required(),
         ingredients: Joi.array().min(1).required(),
@@ -139,5 +167,5 @@ function validateDish(dish) {
     });
     return schema.validate(dish);
 };
-
+ */
 module.exports = router;

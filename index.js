@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const express = require('express');
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 const app = express();
 const customers = require('./routes/customers')
 const cuisines = require('./routes/cuisines')
 const dishes = require('./routes/dishes')
 const orders = require('./routes/orders')
 const home = require('./routes/home')
+const users = require('./routes/users');
 
 mongoose.connect('mongodb://127.0.0.1:27017/foodDelivery')
   .then(() => console.log('Connected to MongoDB...'))
@@ -18,6 +21,7 @@ app.use('/api/cuisines', cuisines);
 app.use('/api/dishes', dishes);
 app.use('/api/orders', orders);
 app.use('/', home);
+app.use('/api/users', users);
 
 const port = process.env.PORT || 3000;
 app.listen (port, () => console.log(`Listening on
