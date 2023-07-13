@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 /* const Joi = require('joi'); */
 const { default: mongoose } = require('mongoose');
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 
 /* const cuisines = [
     {id: 1, name: 'Italian'},
@@ -121,7 +123,7 @@ router.get('/:id', async(req, res) => {
     res.send(cuisine);
 }); */
 
-router.post('/', async(req, res) => {
+router.post('/', auth, async(req, res) => {
     const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
     let cuisine = new Cuisine ({name: req.body.name});
@@ -169,7 +171,7 @@ router.post('/', async(req, res) => {
         res.send(cuisine);
 }); */
 
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', [auth, admin], async(req, res) => {
     const cuisine = await Cuisine.findByIdAndRemove(req.params.id);
     if(!cuisine) return res.status(404).send('the cuisine with the given id was not found');
     res.send(cuisine);

@@ -14,6 +14,7 @@ get http://localhost:3000/api/cuisines/64a7d8052fcf12ff9fbb49a0
 // 3 : POST /api/cuisines
 post http://localhost:3000/api/cuisines
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
 
 {
     "name": "German"
@@ -32,6 +33,7 @@ Content-Type: application/json
 // 5: DELETE /api/cuisines/:id
 delete http://localhost:3000/api/cuisines/64a7d4c54a43a5602fa5e59c
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmYTY3NDJmYjc4YmY0N2ZhYTczNjIiLCJpYXQiOjE2ODkyMzg0Njl9.ayZnguvl78dV7Wcb6q4Hhke0dmhGnveGv1B5m5sxG3k
 
 ###
 //Customers
@@ -147,5 +149,35 @@ Content-Type: application/json
 // 5: DELETE /api/orders/:id
 delete http://localhost:3000/api/orders/64abec9e842f9fe2a9739f28
 Content-Type: application/json
+
+###
+//Auth
+// 1: POST /api/auth
+post http://localhost:3000/api/auth
+Content-Type: application/json
+
+{
+    "email": "sylwia.admin@vives.be",
+    "password": "12345"
+}
+
+###
+
+//Users
+// 1: POST /api/users
+post http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+    "name": "testSylwia",
+    "email": "sylwiaTest@vives.be",
+    "password": "12345"
+}
+
+###
+
+// 2: GET /api/users/me
+get http://localhost:3000/api/users/me/
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
 
 ###
