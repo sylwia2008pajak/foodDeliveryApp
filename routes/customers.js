@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 /* const Joi = require('joi'); */
 const { default: mongoose } = require('mongoose');
-
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 
 /* const Customer = mongoose.model("Customer", new mongoose.Schema({
     name: {
@@ -115,7 +116,7 @@ router.put('/:id', async(req, res) => {
 });
 
 // 5: DELETE /api/customers/:id
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', [auth, admin], async(req, res) => {
     const customer = await Customer.findByIdAndRemove(req.params.id);
     if(!customer) return res.status(404).send('the customer with the given id was not found');
     res.send(customer);

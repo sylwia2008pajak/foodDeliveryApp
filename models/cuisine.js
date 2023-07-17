@@ -15,6 +15,16 @@ const cuisineSchema = new mongoose.Schema({
 
 const Cuisine = mongoose.model('Cuisine', cuisineSchema);
 
+async function removeCuisine(id) {
+    const result = await Cuisine.deleteOne({
+        _id: id
+    });
+    console.log(result);
+}
+//removeCuisine('64a7d3c9f809ca8cd4c8af8b');
+
+
+
 function validateCuisine(cuisine) {
     const schema = Joi.object({
         name: Joi.string().min(3).required()

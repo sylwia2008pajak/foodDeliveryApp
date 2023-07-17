@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
     const token = jwt.sign({_id: user._id}, config.get('jwtPrivateKey'));
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
+    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email', 'isAdmin']));
 });
 
 router.get('/me', auth, async (req, res )=> {
