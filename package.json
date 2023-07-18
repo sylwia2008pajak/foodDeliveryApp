@@ -19,7 +19,8 @@
     "jsonwebtoken": "^9.0.1",
     "lodash": "^4.17.21",
     "mongoose": "^7.3.2",
-    "save-dev": "^0.0.1-security"
+    "save-dev": "^0.0.1-security",
+    "superagent": "^8.0.9"
   },
   "devDependencies": {
     "supertest": "^6.3.3"

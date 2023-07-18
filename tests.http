@@ -8,7 +8,7 @@ get http://localhost:3000/api/cuisines
 
 ###
 // 2: GET /api/cuisines/:id
-get http://localhost:3000/api/cuisines/64a7d8052fcf12ff9fbb49a0 
+get http://localhost:3000/api/cuisines/64ad37058e906588bac718b7 
 
 ###
 // 3 : POST /api/cuisines
@@ -22,8 +22,9 @@ x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhY
 
 ###
 // 4: PUT /api/cuisines/:id
-put http://localhost:3000/api/cuisines/64a83ca3b401c02a12d6fafa
+put http://localhost:3000/api/cuisines/64b699fe485f6af6833eb048
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
 
 {
     "name": "testName"
@@ -31,9 +32,9 @@ Content-Type: application/json
 
 ###
 // 5: DELETE /api/cuisines/:id
-delete http://localhost:3000/api/cuisines/64a7d4c54a43a5602fa5e59c
+delete http://localhost:3000/api/cuisines/64b699fe485f6af6833eb048
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmYTY3NDJmYjc4YmY0N2ZhYTczNjIiLCJpYXQiOjE2ODkyMzg0Njl9.ayZnguvl78dV7Wcb6q4Hhke0dmhGnveGv1B5m5sxG3k
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmZmY3ZWU0OGRiOWE2MGUwZjU0MmUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODk2ODY3Mjl9.B7GV35qUw05IxUapjqFh2EWRLEtzj_sT6K_9GazUtBU
 
 ###
 //Customers
@@ -170,8 +171,9 @@ Content-Type: application/json
 
 {
     "name": "testSylwia",
-    "email": "sylwiaTest@vives.be",
-    "password": "12345"
+    "email": "sylwiaTest3@vives.be",
+    "password": "12345",
+    "isAdmin": true
 }
 
 ###
