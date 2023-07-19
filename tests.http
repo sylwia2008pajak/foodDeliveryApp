@@ -85,6 +85,7 @@ get http://localhost:3000/api/dishes/64abeae4842f9fe2a9739f1b
 // 3 : POST /api/dishes
 post http://localhost:3000/api/dishes
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
 
 {
     "name": "testDish",
@@ -93,29 +94,32 @@ Content-Type: application/json
       "ingredient2",
       "ingredient3"
     ],
-    "cuisineId": "64a7d8052fcf12ff9fbb49a0",
+    "cuisineId": "64ad37058e906588bac718b7",
     "calories": 200,
     "price": 20
 }
 
 ###
 // 4: PUT /api/dishes/:id
-put http://localhost:3000/api/dishes/64abeae4842f9fe2a9739f1b
+put http://localhost:3000/api/dishes/64b7c54b2d5d4bf8b15655ee
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
 
 {
     "name": "testDish0",
     "ingredients": [
       "ingredient0"
     ],
+    "cuisineId": "64ad37058e906588bac718b7",
     "calories": 100,
     "price": 10
 }
 
 ###
 // 5: DELETE /api/dishes/:id
-delete http://localhost:3000/api/dishes/64abeae4842f9fe2a9739f1b
+delete http://localhost:3000/api/dishes/64ad385e8e906588bac718cd
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmZmY3ZWU0OGRiOWE2MGUwZjU0MmUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODk2ODY3Mjl9.B7GV35qUw05IxUapjqFh2EWRLEtzj_sT6K_9GazUtBU
 
 ###
 //Orders
@@ -171,9 +175,9 @@ Content-Type: application/json
 
 {
     "name": "testSylwia",
-    "email": "sylwiaTest3@vives.be",
+    "email": "sylwiaTest4@vives.be",
     "password": "12345",
-    "isAdmin": true
+    "isAdmin": false
 }
 
 ###
