@@ -45,7 +45,6 @@ function validateDish(dish) {
     return schema.validate(dish);
 };
 
-
 // CRUD
 //Create
 async function createDish(cuisine) {

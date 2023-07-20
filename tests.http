@@ -22,7 +22,7 @@ x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhY
 
 ###
 // 4: PUT /api/cuisines/:id
-put http://localhost:3000/api/cuisines/64b699fe485f6af6833eb048
+put http://localhost:3000/api/cuisines/64b91fd999aef4b7b5121f8c
 Content-Type: application/json
 x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
 
@@ -32,7 +32,7 @@ x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhY
 
 ###
 // 5: DELETE /api/cuisines/:id
-delete http://localhost:3000/api/cuisines/64b699fe485f6af6833eb048
+delete http://localhost:3000/api/cuisines/64b91fd999aef4b7b5121f8c
 Content-Type: application/json
 x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmZmY3ZWU0OGRiOWE2MGUwZjU0MmUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODk2ODY3Mjl9.B7GV35qUw05IxUapjqFh2EWRLEtzj_sT6K_9GazUtBU
 
@@ -43,34 +43,35 @@ get http://localhost:3000/api/customers
 
 ###
 // 2: GET /api/customers/:id
-get http://localhost:3000/api/customers/64a82114a957f010a83b8c48
+get http://localhost:3000/api/customers/64ad38bf8e906588bac718d0
 
 ###
 // 3 : POST /api/customers
 post http://localhost:3000/api/customers
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
 
 {
-    "name": "testUser",
-    "phone": "+32111111111",
-    "email": "test@gmail.com"
+    "name": "testCustomer",
+    "phone": "+32111111111"
 }
 
 ###
 // 4: PUT /api/customers/:id
-put http://localhost:3000/api/customers/64abe7af8b9e51fa86e9ef9a
+put http://localhost:3000/api/customers/64b925bf7af5a57c4f366766
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
 
 {
-    "name": "testUser2",
-    "phone": "+32222222222",
-    "email": "test2@gmail.com"
+    "name": "testCustomer2",
+    "phone": "+32222222222"
 }
 
 ###
 // 5: DELETE /api/customers/:id
-delete http://localhost:3000/api/customers/64a82114a957f010a83b8c48
+delete http://localhost:3000/api/customers/64b925bf7af5a57c4f366766
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmZmY3ZWU0OGRiOWE2MGUwZjU0MmUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODk2ODY3Mjl9.B7GV35qUw05IxUapjqFh2EWRLEtzj_sT6K_9GazUtBU
 
 ###
 //Dishes
@@ -79,7 +80,7 @@ get http://localhost:3000/api/dishes
 
 ###
 // 2: GET /api/dishes/:id
-get http://localhost:3000/api/dishes/64abeae4842f9fe2a9739f1b
+get http://localhost:3000/api/dishes/64b7b0025b095187e23b7641
 
 ###
 // 3 : POST /api/dishes
@@ -101,7 +102,7 @@ x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhY
 
 ###
 // 4: PUT /api/dishes/:id
-put http://localhost:3000/api/dishes/64b7c54b2d5d4bf8b15655ee
+put http://localhost:3000/api/dishes/64b9203e521c025e8e7a733c
 Content-Type: application/json
 x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
 
@@ -117,7 +118,7 @@ x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhY
 
 ###
 // 5: DELETE /api/dishes/:id
-delete http://localhost:3000/api/dishes/64ad385e8e906588bac718cd
+delete http://localhost:3000/api/dishes/64b9203e521c025e8e7a733c
 Content-Type: application/json
 x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmZmY3ZWU0OGRiOWE2MGUwZjU0MmUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODk2ODY3Mjl9.B7GV35qUw05IxUapjqFh2EWRLEtzj_sT6K_9GazUtBU
 
@@ -128,32 +129,35 @@ get http://localhost:3000/api/orders
 
 ###
 // 2: GET /api/orders/:id
-get http://localhost:3000/api/orders/64abec9e842f9fe2a9739f28
+get http://localhost:3000/api/orders/64ad39588e906588bac718d8
 
 ###
 // 3 : POST /api/orders
 post http://localhost:3000/api/orders
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
 
 {
-    "customer": "testCustomer",
-    "dish": "testDish"
+    "customerId": "64b926e2c41b4684a0b21b54",
+    "dishId": "64ad37998e906588bac718c1"
 }
 
 ###
 // 4: PUT /api/orders/:id
-put http://localhost:3000/api/orders/64abec9e842f9fe2a9739f28
+put http://localhost:3000/api/orders/64b92ad4bbc2d154c5e8596b
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
 
 {
-    "customer": "testCustomer0",
-    "dish": "testDish0"
+    "customerId": "64b926e2c41b4684a0b21b54",
+    "dishId": "64ad37df8e906588bac718c5"
 }
 
 ###
 // 5: DELETE /api/orders/:id
 delete http://localhost:3000/api/orders/64abec9e842f9fe2a9739f28
 Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmZmY3ZWU0OGRiOWE2MGUwZjU0MmUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODk2ODY3Mjl9.B7GV35qUw05IxUapjqFh2EWRLEtzj_sT6K_9GazUtBU
 
 ###
 //Auth
@@ -175,7 +179,7 @@ Content-Type: application/json
 
 {
     "name": "testSylwia",
-    "email": "sylwiaTest4@vives.be",
+    "email": "sylwiaTest7@vives.be",
     "password": "12345",
     "isAdmin": false
 }
@@ -184,6 +188,19 @@ Content-Type: application/json
 
 // 2: GET /api/users/me
 get http://localhost:3000/api/users/me/
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGI5M2ExNWQ3M2NjZjVhMzQ4MDJmYzIiLCJpYXQiOjE2ODk4NjEwMjN9.QAXt1v6t5H0su-3MxBYx-5KZAWOWTqQrUA8e9NUh-v8
+
+###
+
+
+//Auth
+// 1: POST /api/auth
+post http://localhost:3000/api/auth
+Content-Type: application/json
+
+{
+    "email": "sylwiaTest8@vives.be",
+    "password": "12345"
+}
 
 ###

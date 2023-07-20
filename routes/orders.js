@@ -3,74 +3,9 @@ const {Dish} = require('../models/dish');
 const {Customer} = require('../models/customer');
 const express = require('express');
 const router = express.Router();
-/* const Joi = require('joi'); */
 const { default: mongoose } = require('mongoose');
-
-/* const orders = [
-    {id: 1, customer: 'Max', dish:'Paella', date: "07.07.2023"},
-    {id: 2, customer: 'Helen', dish:'Pasta', date: "07.07.2023"},
-    {id: 3, customer: 'BLiss', dish:'Ratatouille', date: "07.07.2023"}
-]; */
-
-/* const Order = mongoose.model("Order", new mongoose.Schema({
-    customer: {
-        type: String,
-        minlength: 3,
-        required: true
-    },
-    dish: {
-        type: String,
-        minlength: 3,
-        required: true
-    },
-    date: { 
-        type: Date, 
-        default: Date.now(),
-    }
-})); */
-
-
-//CRUD
-//Create
-/* async function createOrder() {
-    const order = new Order({
-        customer: "Sylwia",
-        dish: "Hamburger",
-    });
-    const result = await order.save();
-    console.log(result);
-}
-createOrder(); */
-
-//Read
-/* async function getOrders() {
-    return await Order.find();
-}
-async function run() {
-    const orders = await getOrders();
-    console.log(orders)
-}
-run(); */
-
-//Update
-/* async function updateOrder(id) {
-    const result = await Order.findByIdAndUpdate(id,{
-        $set: {
-            customer: "Maxwel",
-            dish: "Hamburger wit no ketchup"
-        }}, {new:true});
-        console.log(result);
-    }
-updateOrder('64a827ed2957ba146174bcc6'); */
-
-//Delete
-/* async function removeOrder(id) {
-    const result = await Order.deleteOne({
-        _id: id
-    });
-    console.log(result);
-}
-removeOrder('64a828dfb86b4a084f6aee6d'); */
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 
 
 //ENDPOINTS
@@ -89,7 +24,7 @@ router.get('/:id', async(req, res) => {
 });
 
 // 3 : POST /api/orders
-router.post('/', async(req, res) => {
+router.post('/', auth, async(req, res) => {
     const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
@@ -103,8 +38,7 @@ router.post('/', async(req, res) => {
         customer: {
             _id: customer._id,
             name: customer.name,
-            phone: customer.phone,
-            email: customer.email },
+            phone: customer.phone},
         dish: {
             _id: dish._id,
             name: dish.name,
@@ -120,7 +54,7 @@ router.post('/', async(req, res) => {
 });
 
 // 4: PUT /api/orders/:id
-router.put('/:id', async(req, res) => {
+router.put('/:id', auth, async(req, res) => {
     const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
     
@@ -134,8 +68,7 @@ router.put('/:id', async(req, res) => {
         {customer: {
             _id: customer._id,
             name: customer.name,
-            phone: customer.phone,
-            email: customer.email   
+            phone: customer.phone 
         },
         dish: {
             _id: dish._id,
@@ -152,19 +85,10 @@ router.put('/:id', async(req, res) => {
 });
 
 // 5: DELETE /api/orders/:id
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', [auth, admin], async(req, res) => {
     const order = await Order.findByIdAndRemove(req.params.id);
     if(!order) return res.status(404).send('the order with the given id was not found');
     res.send(order);
 });
-
-
-/* function validateOrder(order) {
-    const schema = Joi.object({
-        customer: Joi.string().min(3).required(),
-        dish: Joi.string().min(3).required(),
-    });
-    return schema.validate(order);
-}; */
 
 module.exports = router;
