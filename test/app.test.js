@@ -5,9 +5,14 @@ const {Cuisine} = require('../models/cuisine');
 const {Dish} = require('../models/dish');
 const {Customer} = require('../models/customer');
 const {Order} = require('../models/order');
-const {User} = require('../models/user');
+const {userSchema, User} = require('../models/user');
+const validateObjectId = require('../middleware/validateObjectId');
+const jwt = require('jsonwebtoken');
+const sinon = require('sinon');
+const config = require('config');
 
 const mongoose = require('mongoose');
+const { isUndefined } = require('lodash');
 
 let server;
 let cuisine;
@@ -1239,5 +1244,70 @@ describe('/api/auth', () => {
                 throw err;
             }
         });
+    });
+});
+
+
+//UNIT Tests
+
+//validateObjectId
+
+describe('Validate object id tests', () => {
+    test('OK, valid object id', () => {
+        //arrage and act
+        let validId = new mongoose.Types.ObjectId();
+        var result = validateObjectId(validId);      
+        //assert
+        expect(result).to.equal(true);
+    });
+
+    test('Fail, invalid object id', () => {
+        //arrage and act
+        let invalidId = '123';
+        var result = validateObjectId(invalidId);      
+        //assert
+        expect(result).to.equal(false);
+    });
+
+    test('Fail, no object id provided', () => {
+        //arrage and act
+        var result = validateObjectId();      
+        //assert
+        expect(result).to.equal(false);
+    });
+});
+
+//generateAuthToken
+
+describe('generateAuthToken tests', () => {
+    it('OK, valid token generated', () => {
+      // Test data
+      const user = {
+        _id: 'user_id',
+        isAdmin: true
+      };
+      const secretKey = 'foodDeliveryApp_jwtPrivateKey';
+      const expectedToken = 'mocked_token';
+  
+      // Mock config.get to return the secretKey
+      sinon.stub(config, 'get').withArgs('jwtPrivateKey').returns(secretKey);
+  
+      // Mock jwt.sign to return the expected token
+      const jwtSignStub = sinon.stub(jwt, 'sign').returns(expectedToken);
+  
+      // Call the method
+      const token = userSchema.methods.generateAuthToken.call(user);
+  
+      // Assert the result
+      expect(token).to.equal(expectedToken);
+  
+      // Verify that jwt.sign was called with the correct arguments
+      expect(jwtSignStub.calledOnce).to.be.true;
+      expect(jwtSignStub.firstCall.args[0]).to.deep.equal({ _id: 'user_id', isAdmin: true });
+      expect(jwtSignStub.firstCall.args[1]).to.equal(secretKey);
+  
+      // Restore the original functions
+      jwtSignStub.restore();
+      config.get.restore();
     });
 });
