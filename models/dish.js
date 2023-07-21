@@ -48,55 +48,80 @@ function validateDish(dish) {
 // CRUD
 //Create
 async function createDish(cuisine) {
-    const dish = new Dish({
-        name: "Spaghetti",
-        cuisine: cuisine,
-        ingredients: ["Pasta", "Tomatoe saus"],
-        calories: 500,
-        price: 10
-    });
-    const result = await dish.save();
-    console.log(result);
+    try {
+        const dish = new Dish({
+            name: "Spaghetti",
+            cuisine: cuisine,
+            ingredients: ["Pasta", "Tomatoe saus"],
+            calories: 500,
+            price: 10
+        });
+        const result = await dish.save();
+        console.log(result);
+    } catch (err) {
+        console.error('Error creating dish: ', err);
+        throw err;
+    }
 }
 //createDish(new Cuisine({name: 'Italian'}));
 
 //Read
 async function getDishes() {
-    return await Dish.find();
-}
+    try {
+        return await Dish.find();
+    } catch (err) {
+        console.error('Error getting dishes: ', err);
+        throw err;
+    }
 async function run() {
-    const dishes = await getDishes();
-    console.log(dishes)
+    try {
+        const dishes = await getDishes();
+        console.log(dishes)
+    } catch (err) {
+        console.error('Error getting dishes: ', err);
+        throw err;
+    }
 }
 //run();
 
 //Update
 async function updateDish(id) {
-    if(validateObjectId(id)) {
-        const result = await Dish.findByIdAndUpdate(id,{
-            $set: {
-                name: "Spaghetti",
-                'cuisine.name': 'French',
-                ingredients: ["Pasta", "Tomatoe saus", "Basilicum"],
-                calories: 510,
-                price: 11
-            }}, {new:true});
-        console.log(result);
-    } else {
-        console.log('Invalid objectId')
+    try {
+        if(validateObjectId(id)) {
+            const result = await Dish.findByIdAndUpdate(id,{
+                $set: {
+                    name: "Spaghetti",
+                    'cuisine.name': 'French',
+                    ingredients: ["Pasta", "Tomatoe saus", "Basilicum"],
+                    calories: 510,
+                    price: 11
+                }}, {new:true});
+            console.log(result);
+        } else {
+            console.log('Invalid objectId')
+        }
+    } catch (err) {
+        console.error('Error updating dish: ', err);
+        throw err;
+    }        
     }
 }
 //updateDish('64b7b0025b095187e23b7641');
 
 //Delete
 async function removeDish(id) {
-    if(validateObjectId(id)) {
-    const result = await Dish.deleteOne({
-        _id: id
-    });
-    console.log(result);
-    } else {
-        console.log('Invalid objectId')
+    try {
+        if(validateObjectId(id)) {
+        const result = await Dish.deleteOne({
+            _id: id
+        });
+        console.log(result);
+        } else {
+            console.log('Invalid objectId')
+        }
+    } catch (err) {
+        console.error('Error removing dish: ', err);
+        throw err;
     }
 }
 //removeDish('64b7afd55188b59839217eba');

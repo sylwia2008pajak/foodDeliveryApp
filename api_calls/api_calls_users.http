@@ -1,6 +1,3 @@
-//Home
-get http://localhost:3000/
-
 # USER CALL #
 # Variables
 @base_URL=http://localhost:3000/api/users 
@@ -10,12 +7,12 @@ post {{base_URL}}
 Content-Type: application/json
 
 //"name": "testSylwia", //5 to 50 string
-//"email": "sylwiaTest117@vives.be", //5 to 255 string
+//"email": "sylwiaTest718@vives.be", //5 to 255 string
 //"password": "12345", //5 to 1024 string
 //"isAdmin": false //boolean
 {
     "name": "testSylwia",
-    "email": "sylwiaTest117@vives.be",
+    "email": "sylwiaTest718@vives.be",
     "password": "12345",
     "isAdmin": false
 }

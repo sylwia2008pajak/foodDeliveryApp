@@ -26,7 +26,7 @@ x-auth-token: {{token}}
 
 ###
 //PUT /:id
-@objId2=64b91fd999aef4b7b5121f8c
+@objId2=64bad7fa2766c12036f513a3
 put {{base_URL}}/{{objId2}}
 Content-Type: application/json
 x-auth-token: {{token}}
@@ -37,7 +37,7 @@ x-auth-token: {{token}}
 
 ###
 //DELETE /:id
-@objId3=64ba770ffc2fa141e26852ad
+@objId3=64bad7fa2766c12036f513a3
 delete {{base_URL}}/{{objId3}}
 Content-Type: application/json
 x-auth-token: {{token2}}

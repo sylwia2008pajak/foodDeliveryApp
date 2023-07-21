@@ -17,10 +17,6 @@ if (!config.get('jwtPrivateKey')){
   process.exit(1);
 };
 
-/* mongoose.connect('mongodb://127.0.0.1:27017/foodDelivery')
-  .then(() => console.log('Connected to MongoDB...'))
-  .catch(err => console.error('Could not connect to MongoDB...', err)); */
-
 mongoose.connect(config.get("db"))
   .then(() => console.log(`Connected to ${config.get('db')}`))
   .catch(err => console.error('Could not connect to MongoDB...', err));

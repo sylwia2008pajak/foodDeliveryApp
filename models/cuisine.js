@@ -24,48 +24,74 @@ function validateCuisine(cuisine) {
 // CRUD
 //Create
 async function createCuisine() {
-    const cuisine = new Cuisine({
-        name: "Mexican"
-    });
-    const result = await cuisine.save();
-    console.log(result);
+    try {
+        const cuisine = new Cuisine({
+            name: "Mexican"
+        });
+        const result = await cuisine.save();
+        console.log(result);
+    } catch (err) {
+        console.err('Error creating cuisine: ', err);
+        throw err;
+    }
 }
 //createCuisine();
 
 //Read
 async function getCuisines() {
-    return await Cuisine.find();
+    try {
+        return await Cuisine.find();
+    } catch (err) {
+        console.error('Error getting cuisines: ', err);
+        throw err;
+    }
 }
+
 async function run() {
-    const cuisines = await getCuisines();
-    console.log(cuisines)
+    try {
+        const cuisines = await getCuisines();
+        console.log(cuisines)
+    } catch (err) {
+        console.error('Error getting cuisines: ', err);
+        throw err;
+    }
 }
 //run();
 
 //Update
 async function updateCuisine(id) {
-    if(validateObjectId(id)) {
-    const result = await Cuisine.findByIdAndUpdate(id,{
-        $set: {
-            name: "Greek"
+    try {
+        if(validateObjectId(id)) {
+        const result = await Cuisine.findByIdAndUpdate(id,{
+            $set: {
+                name: "Greek"
+            }
+        }, {new:true});
+        console.log(result);
+        } else {
+            console.log('Invalid objectId')
         }
-    }, {new:true});
-    console.log(result);
-    } else {
-        console.log('Invalid objectId')
+    } catch (err) {
+        console.error('Error updating cuisine: ', err);
+        throw err;
     }
 }
 //updateCuisine('64b7aa7c6359e51b5a03b544');
 
 //Delete
 async function removeCuisine(id) {
-    if(validateObjectId(id)) {
-    const result = await Cuisine.deleteOne({
-        _id: id
-    });
-    console.log(result);
-    } else {
-        console.log('Invalid objectId');
+    try {
+        if(validateObjectId(id)) {
+        const result = await Cuisine.deleteOne({
+            _id: id
+        });
+        console.log(result);
+        } else {
+            console.log('Invalid objectId');
+        }
+    } catch (err) {
+        console.error('Error removing cuisine: ', err);
+        throw err;
     }
 }
 //removeCuisine('64b7aa7c6359e51b5a03b544');

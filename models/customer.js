@@ -26,50 +26,74 @@ function validateCustomer(customer) {
 //CRUD
 //Create
 async function createCustomer() {
-    const customer = new Customer({
-        name: "test",
-        phone: "+48111111111"
-    });
-    const result = await customer.save();
-    console.log(result);
+    try {
+        const customer = new Customer({
+            name: "test",
+            phone: "+48111111111"
+        });
+        const result = await customer.save();
+        console.log(result);
+    } catch (err) {
+        console.error('Error creating customer: ', err);
+        throw err;
+    }
 }
 //createCustomer();
 
 //Read
 async function getCustomers() {
-    return await Customer.find();
+    try {
+        return await Customer.find();
+    } catch (err) {
+        console.error('Error getting customers: ', err);
+        throw err;
+    }
 }
 async function run() {
-    const customers = await getCustomers();
-    console.log(customers)
+    try {
+        const customers = await getCustomers();
+        console.log(customers)
+    } catch (err) {
+        console.error('Error getting customers: ', err);
+        throw err;
+    }
 }
 //run();
 
 //Update
 async function updateCustomer(id) {
-    if(validateObjectId(id)) {
-        const result = await Customer.findByIdAndUpdate(id,{
-        $set: {
-            name: "test2",
-            phone: "+48555555555"/* ,
-            email: "test2@hotmail.com" */
-        }}, {new:true});
-        console.log(result);
-    } else {
-        console.log('Invalid objectId')
+    try {
+        if(validateObjectId(id)) {
+            const result = await Customer.findByIdAndUpdate(id,{
+            $set: {
+                name: "test2",
+                phone: "+48555555555"
+            }}, {new:true});
+            console.log(result);
+        } else {
+            console.log('Invalid objectId')
+        }
+    } catch (err) {
+        console.error('Error updating customer: ', err);
+        throw err;
     }
 }
 //updateCustomer('64b8dc97913c3e3c0b73eeb5');
 
 //Delete
 async function removeCustomer(id) {
-    if(validateObjectId(id)) {
-        const result = await Customer.deleteOne({
-        _id: id
-    });
-        console.log(result);
-    } else {
-    console.log('Invalid objectId')
+    try {
+        if(validateObjectId(id)) {
+            const result = await Customer.deleteOne({
+            _id: id
+        });
+            console.log(result);
+        } else {
+            console.log('Invalid objectId')
+        }
+    } catch (err) {
+        console.error('Error removing customer: ', err);
+        throw err;
     }
 }
 //removeCustomer('64b8dc97913c3e3c0b73eeb5');
