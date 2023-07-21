@@ -22,7 +22,6 @@ mongoose.connect(config.get("db"))
   .catch(err => console.error('Could not connect to MongoDB...', err));
 
 app.use(express.json());
-
 app.use('/api/customers', customers);
 app.use('/api/cuisines', cuisines);
 app.use('/api/dishes', dishes);
@@ -30,6 +29,8 @@ app.use('/api/orders', orders);
 app.use('/', home);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+
+app.set('view engine', 'pug');
 
 const port = process.env.PORT || 3000;
 const server = app.listen (port, () => console.log(`Listening on port ${port}...`));
