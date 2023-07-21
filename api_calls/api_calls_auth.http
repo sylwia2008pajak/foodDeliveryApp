@@ -1,0 +1,15 @@
+# AUTH CALLS #
+# Variables 
+@base_URL=http://localhost:3000/api/auth 
+// 1: POST /api/auth
+post {{base_URL}}
+Content-Type: application/json
+
+//"email": "sylwiaTest8@vives.be", //5 to 255 string
+//"password": "12345", //5 to 1024 string
+{
+    "email": "sylwiaTest8@vives.be",
+    "password": "12345"
+}
+
+###

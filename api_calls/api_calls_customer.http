@@ -1,0 +1,48 @@
+# CUSTOMER CALLS #
+# Variables
+@base_URL=http://localhost:3000/api/customers 
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
+@token2=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmZmY3ZWU0OGRiOWE2MGUwZjU0MmUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODk2ODY3Mjl9.B7GV35qUw05IxUapjqFh2EWRLEtzj_sT6K_9GazUtBU
+
+//GET 
+get {{base_URL}}
+
+###
+//GET /:id
+@objId1=64b926e0c41b4684a0b21b4e
+get {{base_URL}}/{{objId1}}
+Content-Type: application/json
+
+###
+//POST
+post {{base_URL}}
+Content-Type: application/json
+x-auth-token: {{token}}
+
+//"name": "testCustomer", //min 3 string
+//"phone": "+32111111111" //min 12 string
+{
+    "name": "testCustomer",
+    "phone": "+32111111111"
+}
+
+###
+//PUT /:id
+@objId2=64ba7d78fc2fa141e26852cd
+put {{base_URL}}/{{objId2}}
+Content-Type: application/json
+x-auth-token: {{token}}
+
+{
+    "name": "testCustomer2",
+    "phone": "+32222222222"
+}
+
+###
+//DELETE /:id
+@objId3=64b92a9abbc2d154c5e85948
+delete {{base_URL}}/{{objId3}}
+Content-Type: application/json
+x-auth-token: {{token2}}
+
+###

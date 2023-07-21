@@ -1,0 +1,29 @@
+//Home
+get http://localhost:3000/
+
+# USER CALL #
+# Variables
+@base_URL=http://localhost:3000/api/users 
+
+//POST
+post {{base_URL}}
+Content-Type: application/json
+
+//"name": "testSylwia", //5 to 50 string
+//"email": "sylwiaTest117@vives.be", //5 to 255 string
+//"password": "12345", //5 to 1024 string
+//"isAdmin": false //boolean
+{
+    "name": "testSylwia",
+    "email": "sylwiaTest117@vives.be",
+    "password": "12345",
+    "isAdmin": false
+}
+
+###
+
+//GET /me
+get {{base_URL}}/me/
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGJhODE3ZWZjMmZhMTQxZTI2ODUzMDkiLCJpYXQiOjE2ODk5NDQ0NDZ9.I45agnxSWwQn5ROksyYOHZtrfgMn2Zt7XkEGTrDHnvM
+
+###

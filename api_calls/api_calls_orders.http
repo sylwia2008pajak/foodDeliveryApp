@@ -1,0 +1,48 @@
+# ORDER CALLS #
+# Variables
+@base_URL=http://localhost:3000/api/orders 
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
+@token2=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmZmY3ZWU0OGRiOWE2MGUwZjU0MmUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODk2ODY3Mjl9.B7GV35qUw05IxUapjqFh2EWRLEtzj_sT6K_9GazUtBU
+
+//GET 
+get {{base_URL}}  
+
+###
+//GET /:id
+@objId1=64b926f7c41b4684a0b21b58
+get {{base_URL}}/{{objId1}}
+Content-Type: application/json
+
+###
+//POST
+post {{base_URL}}
+Content-Type: application/json
+x-auth-token: {{token}}
+
+//"customerId": "64ba7d78fc2fa141e26852cd", //object Id of document Customer
+//"dishId": "64ad37998e906588bac718c1" //object Id of document Dish
+{
+    "customerId": "64ba7d78fc2fa141e26852cd",
+    "dishId": "64ad37998e906588bac718c1"
+}
+
+###
+//PUT /:id
+@objId2=64b926f7c41b4684a0b21b58
+put {{base_URL}}/{{objId2}}
+Content-Type: application/json
+x-auth-token: {{token}}
+
+{
+    "customerId": "64ba7d78fc2fa141e26852cd",
+    "dishId": "64ad382a8e906588bac718c9"
+}
+
+###
+// 5: DELETE /:id
+@objId3=64b926fac41b4684a0b21b74
+delete {{base_URL}}/{{objId3}}
+Content-Type: application/json
+x-auth-token: {{token2}}
+
+###

@@ -1,0 +1,63 @@
+# DISH CALLS #
+# Variables
+@base_URL=http://localhost:3000/api/dishes 
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
+@token2=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmZmY3ZWU0OGRiOWE2MGUwZjU0MmUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODk2ODY3Mjl9.B7GV35qUw05IxUapjqFh2EWRLEtzj_sT6K_9GazUtBU
+
+//GET 
+get {{base_URL}}
+
+###
+//GET /:id
+@objId1=64ad37998e906588bac718c1
+get {{base_URL}}/{{objId1}}
+Content-Type: application/json
+
+###
+//POST
+post {{base_URL}}
+Content-Type: application/json
+x-auth-token: {{token}}
+
+//"name": "testDish", //min 2 string
+//"ingredients": ["ingredient1","ingredient2","ingredient3"], //min 1 array 
+//"cuisnieId": "64ad37058e906588bac718b7", //object Id of document Cuisine
+//"calories": 200, //min 0 number
+//"price": 20 //min 0 number
+{
+    "name": "testDish",
+    "ingredients": [
+      "ingredient1",
+      "ingredient2",
+      "ingredient3"
+    ],
+    "cuisineId": "64ad37058e906588bac718b7",
+    "calories": 200,
+    "price": 20
+}
+
+###
+//PUT /:id
+@objId2=64ba7a68fc2fa141e26852bb
+put {{base_URL}}/{{objId2}}
+Content-Type: application/json
+x-auth-token: {{token}}
+
+{
+    "name": "testDish0",
+    "ingredients": [
+      "ingredient0"
+    ],
+    "cuisineId": "64ad37058e906588bac718b7",
+    "calories": 100,
+    "price": 10
+}
+
+###
+// 5: DELETE /:id
+@objId3=64b90780d879e7d293901975
+delete {{base_URL}}/{{objId3}}
+Content-Type: application/json
+x-auth-token: {{token2}}
+
+###

@@ -1,0 +1,45 @@
+# CUISINE CALLS #
+# Variables
+@base_URL=http://localhost:3000/api/cuisines 
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
+@token2=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmZmY3ZWU0OGRiOWE2MGUwZjU0MmUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODk2ODY3Mjl9.B7GV35qUw05IxUapjqFh2EWRLEtzj_sT6K_9GazUtBU
+
+//GET 
+get {{base_URL}}  
+
+###
+//GET /:id
+@objId1=64ad37058e906588bac718b7
+get {{base_URL}}/{{objId1}}
+Content-Type: application/json
+
+###
+//POST
+post {{base_URL}}
+Content-Type: application/json
+x-auth-token: {{token}}
+
+//"name": "Greek" //min 3 string
+{
+    "name": "German"
+}
+
+###
+//PUT /:id
+@objId2=64b91fd999aef4b7b5121f8c
+put {{base_URL}}/{{objId2}}
+Content-Type: application/json
+x-auth-token: {{token}}
+
+{
+    "name": "testName"
+}
+
+###
+//DELETE /:id
+@objId3=64ba770ffc2fa141e26852ad
+delete {{base_URL}}/{{objId3}}
+Content-Type: application/json
+x-auth-token: {{token2}}
+
+###

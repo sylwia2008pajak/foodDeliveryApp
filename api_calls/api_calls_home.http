@@ -1,0 +1,8 @@
+# HOME CALLS#
+# Variables
+@base_URL=http://localhost:3000/
+
+//GET
+get {{base_URL}}
+
+###
