@@ -1,58 +1,71 @@
 # foodDeliveryApp
 'Dit is een readme file'
 
-API Documentatie
+# foodDeliveryApp
+'Dit is een readme file'
 
-Base URL
+## API Documentatie
+
+### I Base URL
+
 De basis-URL voor de API is : https://api.foodDelivery.be
 
-Authentication
+### II Authentication
+
 De API gebruikt JWT (JSON Web Tokens) voor authenticatie. Om toegang te krijgen tot beveiligde eindpunten, neemt je het JWT-token als volgt po in de header :
 x-auth-token: {{je_token}}
 
-Endpoints
+### III Endpoints
 
-Cuisines
-•	Get all Cuisines
-o	Endpoint : ‘GET /cuisines’
-o	Description : Get a list of all cuisines
-o	Request : none
-o	Response :
-	[
+#### Cuisines
++ Get all Cuisines
+    + Endpoint : ‘GET /cuisines’
+    + Description : Get a list of all cuisines
+    + Request : none
+    + Response :
+     
+      [
  { "_id": "64ad37058e906588bac718b7", "name": "Italian", "__v": 0 },
  { "_id": "64ad370f8e906588bac718b9", "name": "French", "__v": 0 }, 
  { "_id": "64ad37158e906588bac718bb", "name": "Mexican", "__v": 0 }
 ]
-•	Get Cuisine by id
-o	Endpoint : ‘GET /cuisines/ :id’
-o	Description : Get a specific cuisine by its id
-o	Request : none
-o	Response :
-	{ "_id": "64ad37058e906588bac718b7", "name": "Italian", "__v": 0 }
-•	Create a new Cuisine
-o	Endpoint : ‘POST /cuisines’
-o	Description : Create a new cuisine
-o	Request : {"name": "Italian" }
-	beveiligd eindpunt, authenticatie vereist
-o	Response :
-	{ "_id": "64ad37058e906588bac718b7", "name": "Italian", "__v": 0 }
-•	Update existing Cuisine
-o	Endpoint : ‘PUT /cuisines/ :id’
-o	Description : Update existing cuisine
-o	Request : 
-	{"name": "newCuisineName" }
-	beveiligd eindpunt, authenticatie vereist
-o	Response :
-	{ "_id": "64ad37058e906588bac718b7", "name": " newCuisineName ", "__v": 0 }
-•	Delete Cuisine
-o	Endpoint : ‘DELETE /cuisines/ :id’
-o	Description : Delete cuisine by its id
-o	Request : none
-	beveiligd eindpunt, authenticatie  en authorisatie vereist
-o	Response :
-	{ "_id": "64ad37058e906588bac718b7", "name": " newCuisineName ", "__v": 0 }
++ Get Cuisine by id
+    + Endpoint : ‘GET /cuisines/ :id’
+    + Description : Get a specific cuisine by its id
+    + Request : none
+    + Response :
 
-Dishes
+        { "_id": "64ad37058e906588bac718b7", "name": "Italian", "__v": 0 }
+
++ Create a new Cuisine
+    + Endpoint : ‘POST /cuisines’
+    + Description : Create a new cuisine
+    + Request :
+        + {"name": "Italian" }
+        + beveiligd eindpunt, authenticatie vereist
+    + Response :
+    
+        { "_id": "64ad37058e906588bac718b7", "name": "Italian", "__v": 0 }
+
++ Update existing Cuisine
+    + Endpoint : ‘PUT /cuisines/ :id’
+    + Description : Update existing cuisine
+    + Request : 
+        + {"name": "newCuisineName" }
+        + beveiligd eindpunt, authenticatie vereist
+    + Response :
+
+        { "_id": "64ad37058e906588bac718b7", "name": " newCuisineName ", "__v": 0 }
++ Delete Cuisine
+    + Endpoint : ‘DELETE /cuisines/ :id’
+    + Description : Delete cuisine by its id
+    + Request : none
+        + beveiligd eindpunt, authenticatie  en authorisatie vereist
+    + Response :
+
+        { "_id": "64ad37058e906588bac718b7", "name": " newCuisineName ", "__v": 0 }
+
+#### Dishes
 •	Get all Dishes
 o	Endpoint : ‘GET /dishes
 o	Description : Get a list of all dishes
@@ -106,7 +119,7 @@ o	Request : none
 o	Response :
 	{ "_id": "64ba7a68fc2fa141e26852bb", "name": "testDish0", "cuisine": { "name": "Italian", "_id": "64ad37058e906588bac718b7" }, "ingredients": [ "ingredient0" ], "calories": 100, "price": 10, "__v": 0 }
 
-Customers
+#### Customers
 •	Get all Customers
 o	Endpoint : ‘GET /customers
 o	Description : Get a list of all customers 
@@ -146,7 +159,7 @@ o	Request : none
 o	Response :
 	{ "_id": "64ba7d78fc2fa141e26852cd", "name": "testCustomer2", "phone": "+32222222222", "__v": 0 }
 
-Orders
+#### Orders
 •	Get all Orders
 o	Endpoint : ‘GET /orders
 o	Description : Get a list of all orders 
@@ -192,7 +205,7 @@ o	Request : none
 o	Response :
 	{ "_id": "64b926f7c41b4684a0b21b58", "customer": { "name": "testCustomer2", "phone": "+32222222222", "_id": "64ba7d78fc2fa141e26852cd" }, "dish": { "name": "Tacos", "cuisine": { "name": "Mexican", "_id": "64ad37158e906588bac718bb" }, "ingredients": [ "Tacos", "Meat", "Beans" ], "calories": 600, "price": 15, "_id": "64ad382a8e906588bac718c9" }, "date": "2023-07-22T07:52:35.904Z", "__v": 0 }
 
-Users
+#### Users
 •	Create a new User
 o	Endpoint : ‘POST /users
 o	Description : Create a new user
@@ -213,7 +226,7 @@ o	Request : none
 o	Response :
 	{ "_id": "64ba817efc2fa141e2685309", "name": "testSylwia", "email": "sylwiaTest117@vives.be", "isAdmin": false, "__v": 0 }
 
-Auth
+#### Auth
 •	Create token
 o	Endpoint : ‘POST /auth
 o	Description : Get a token by user’s email and password
@@ -225,7 +238,7 @@ o	Request :
 o	Response :
 	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGI5M2ExNWQ3M2NjZjVhMzQ4MDJmYzIiLCJpYXQiOjE2OTAwMTI5NDd9.RWgr-c1RXhD2vabvoo0bfXrKaFgzoCzQDSh6W45gG3c
 
-Home
+#### Home
 •	Get Home page
 o	Endpoint : ‘GET / ’
 o	Description : Get a home page
@@ -233,12 +246,12 @@ o	Request : none
 o	Response :
 	<html><head><title>FoodDeliveryApp</title></head><body><h1>Welkom op FoodDelivery</h1></body></html>
 
-Error Handling
+### IV Error Handling
 De API retourneert de juiste HTTP-statuscodes en foutmeldingen voor verschillende foutscenario's. Bijvoorbeeld :
 •	400 Bad Request: ongeldige verzoekgegevens of parameters
 •	401 Unauthorized: ontbrekend of ongeldig token
 •	403 Forbidden: geen admin token
 •	404 Not Found: gevraagde bron is niet gevonden
 
-Contact info
+### V Contact info
 Bij vragen neem contact met mij op via sylwia.pajak@student.vives.be
