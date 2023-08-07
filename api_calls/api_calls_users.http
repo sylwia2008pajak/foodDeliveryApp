@@ -12,7 +12,7 @@ Content-Type: application/json
 //"isAdmin": false //boolean
 {
     "name": "testSylwia",
-    "email": "sylwiaTest718@vives.be",
+    "email": "sylwiaTestAdmin8@vives.be",
     "password": "12345",
     "isAdmin": false
 }
@@ -21,6 +21,6 @@ Content-Type: application/json
 
 //GET /me
 get {{base_URL}}/me/
-x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGJhODE3ZWZjMmZhMTQxZTI2ODUzMDkiLCJpYXQiOjE2ODk5NDQ0NDZ9.I45agnxSWwQn5ROksyYOHZtrfgMn2Zt7XkEGTrDHnvM
+x-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQxMmQ1OWRjOWM2ZjhmMTkxOTMyMjQiLCJpYXQiOjE2OTE0MzAyMzN9.DkpNDXLg-zTrqjg8xT7EEAL3-CsfYhf-TUAmB-s9wK4
 
 ###

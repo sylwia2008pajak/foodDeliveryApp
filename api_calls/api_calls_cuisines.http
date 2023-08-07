@@ -1,8 +1,10 @@
 # CUISINE CALLS #
 # Variables
 @base_URL=http://localhost:3000/api/cuisines 
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
-@token2=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmZmY3ZWU0OGRiOWE2MGUwZjU0MmUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODk2ODY3Mjl9.B7GV35qUw05IxUapjqFh2EWRLEtzj_sT6K_9GazUtBU
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQxMTc4ZTRiNzVlNGIyZDFhOGUxODQiLCJpYXQiOjE2OTE0MjQ2NTR9.APLWx9IQUxM4GBGJCzH0tLn5UJHIcvutqx-E6ugcbmM
+#@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmY2ZlZjdkNzNhYjJmYmE0ZjJhMmQiLCJpYXQiOjE2ODkyNTI3MjR9.OuXES1yHgpIqxeXcKJ56hQNqBx8-ts-HaHgleyWdCTs
+#@token2=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGFmZmY3ZWU0OGRiOWE2MGUwZjU0MmUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2ODk2ODY3Mjl9.B7GV35qUw05IxUapjqFh2EWRLEtzj_sT6K_9GazUtBU
+@token2=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQxMzE2NzNiOGRjMGQwNGViNjBlODEiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2OTE0MzEyNzF9.5bCoeEEGFnrusHRjB4YfOBh-ojD95GEaqk3W0Gfoogc
 
 //GET 
 get {{base_URL}}  
@@ -26,18 +28,18 @@ x-auth-token: {{token}}
 
 ###
 //PUT /:id
-@objId2=64bad7fa2766c12036f513a3
+@objId2=64d117eb4b75e4b2d1a8e186
 put {{base_URL}}/{{objId2}}
 Content-Type: application/json
 x-auth-token: {{token}}
 
 {
-    "name": "testName"
+    "name": "testName2"
 }
 
 ###
 //DELETE /:id
-@objId3=64bad7fa2766c12036f513a3
+@objId3=64d11a9f4b75e4b2d1a8e18f
 delete {{base_URL}}/{{objId3}}
 Content-Type: application/json
 x-auth-token: {{token2}}
