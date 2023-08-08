@@ -9,7 +9,7 @@ Ze worden hieronder beschreven.
 
 ### I Base URL
 
-De basis-URL voor de API is : https://api.foodDelivery.be
+De basis-URL voor de API is : http://35.241.144.96:3000/
 
 ### II Authentication
 
@@ -290,3 +290,39 @@ De API retourneert de juiste HTTP-statuscodes en foutmeldingen voor verschillend
 
 ### V Contact info
 Bij vragen neem contact met mij op via sylwia.pajak@student.vives.be
+
+## Deployment GCP
+
+1.	Log je in op GCP.
+2.	Selecteer console.
+3.	Maak een virtuele machine aan:
++   Pas de instance naam aan
++   Kies regio: europe-west1 (Belgie)
++	Configureer machine:
+    +	Serie: E2
+    +	Type: e2-micro
+4.	Selecteer gewenste OS (Ubuntu)
+5.	Laat HTTP en HTTPS traffic toe
+6.	Voeg port 3000 toe
+a.	Firewall -> create firewall rule
+b.	 Pas de volgende eigenschappen aan:
+i.	Name
+ii.	Description
+iii.	priority (1000)
+iv.	Direction (ingres)
+v.	Action on match (allow)
+vi.	Targets (specified service account)
+vii.	Service account scope (in this project) 
+viii.	target service account (Compute engine default service account)
+ix.	sourceIPv4 (ranges 0.0.0.0/0)
+x.	specified protocols and ports (TCP: 3000)
+7.	Open terminal van VM in de browser.
+a.	Clone je git repository
+b.	Installeer:
+i.	Node.js
+ii.	Npm 
+iii.	Docker.io installeren
+8.	Start je applicatie op: 
+a.	export foodDeliveryApp_jwtPrivateKey='MySecureKey'
+b.	node index.js
+

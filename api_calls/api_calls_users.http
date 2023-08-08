@@ -12,9 +12,9 @@ Content-Type: application/json
 //"isAdmin": false //boolean
 {
     "name": "testSylwia",
-    "email": "sylwiaTestAdmin8@vives.be",
+    "email": "sylwiaTestAdmin11@vives.be",
     "password": "12345",
-    "isAdmin": false
+    "isAdmin": true
 }
 
 ###
