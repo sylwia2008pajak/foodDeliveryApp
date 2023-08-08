@@ -296,33 +296,33 @@ Bij vragen neem contact met mij op via sylwia.pajak@student.vives.be
 1.	Log je in op GCP.
 2.	Selecteer console.
 3.	Maak een virtuele machine aan:
-+   Pas de instance naam aan
-+   Kies regio: europe-west1 (Belgie)
-+	Configureer machine:
-    +	Serie: E2
-    +	Type: e2-micro
+    +   Pas de instance naam aan
+    +   Kies regio: europe-west1 (Belgie)
+    +	Configureer machine:
+        +	Serie: E2
+        +	Type: e2-micro
 4.	Selecteer gewenste OS (Ubuntu)
 5.	Laat HTTP en HTTPS traffic toe
 6.	Voeg port 3000 toe
-a.	Firewall -> create firewall rule
-b.	 Pas de volgende eigenschappen aan:
-i.	Name
-ii.	Description
-iii.	priority (1000)
-iv.	Direction (ingres)
-v.	Action on match (allow)
-vi.	Targets (specified service account)
-vii.	Service account scope (in this project) 
-viii.	target service account (Compute engine default service account)
-ix.	sourceIPv4 (ranges 0.0.0.0/0)
-x.	specified protocols and ports (TCP: 3000)
+    +    Firewall -> create firewall rule
+    +    Pas de volgende eigenschappen aan:
+        +    name
+        +    description
+        +    priority (1000)
+        +    direction (ingres)
+        +    action on match (allow)
+        +    targets (specified service account)
+        +    service account scope (in this project) 
+        +    get service account (Compute engine default service account)
+        +    sourceIPv4 (ranges 0.0.0.0/0)
+        +    specified protocols and ports (TCP: 3000)
 7.	Open terminal van VM in de browser.
-a.	Clone je git repository
-b.	Installeer:
-i.	Node.js
-ii.	Npm 
-iii.	Docker.io installeren
+    +   Clone je git repository
+    +   Installeer:
+        +    Node.js
+        +    Npm 
+        +    Docker.io
 8.	Start je applicatie op: 
-a.	export foodDeliveryApp_jwtPrivateKey='MySecureKey'
-b.	node index.js
+    +    export foodDeliveryApp_jwtPrivateKey='MySecureKey'
+    +    node index.js
 
