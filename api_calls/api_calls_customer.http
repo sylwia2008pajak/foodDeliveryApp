@@ -1,6 +1,9 @@
 # CUSTOMER CALLS #
 # Variables
-@base_URL=http://localhost:3000/api/customers 
+
+//@base_URL=http://localhost:3000/api/customers 
+@base_URL=http://35.241.144.96:3000/api/customers
+
 @token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQxMTc4ZTRiNzVlNGIyZDFhOGUxODQiLCJpYXQiOjE2OTE0MjQ2NTR9.APLWx9IQUxM4GBGJCzH0tLn5UJHIcvutqx-E6ugcbmM
 @token2=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQxMzE2NzNiOGRjMGQwNGViNjBlODEiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2OTE0MzEyNzF9.5bCoeEEGFnrusHRjB4YfOBh-ojD95GEaqk3W0Gfoogc
 

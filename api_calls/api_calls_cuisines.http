@@ -1,6 +1,9 @@
 # CUISINE CALLS #
 # Variables
-@base_URL=http://localhost:3000/api/cuisines 
+
+//@base_URL=http://localhost:3000/api/cuisines 
+@base_URL=http://35.241.144.96:3000/api/cuisines
+
 @token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQxMTc4ZTRiNzVlNGIyZDFhOGUxODQiLCJpYXQiOjE2OTE0MjQ2NTR9.APLWx9IQUxM4GBGJCzH0tLn5UJHIcvutqx-E6ugcbmM
 
 @token2=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQxMzE2NzNiOGRjMGQwNGViNjBlODEiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2OTE0MzEyNzF9.5bCoeEEGFnrusHRjB4YfOBh-ojD95GEaqk3W0Gfoogc
@@ -22,7 +25,7 @@ x-auth-token: {{token}}
 
 //"name": "Greek" //min 3 string
 {
-    "name": "German"
+    "name": "German5"
 }
 
 ###
@@ -38,7 +41,7 @@ x-auth-token: {{token}}
 
 ###
 //DELETE /:id
-@objId3=64d11a9f4b75e4b2d1a8e18f
+@objId3=64d3a7861baa99faba27ca1c
 delete {{base_URL}}/{{objId3}}
 Content-Type: application/json
 x-auth-token: {{token2}}

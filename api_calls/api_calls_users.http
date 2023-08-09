@@ -1,6 +1,8 @@
 # USER CALL #
 # Variables
-@base_URL=http://localhost:3000/api/users 
+
+//@base_URL=http://localhost:3000/api/users 
+@base_URL=http://35.241.144.96:3000/api/users
 
 //POST
 post {{base_URL}}
